@@ -116,7 +116,7 @@ var sendVerificationEmailAfterApproval = function (_a) {
                     // Send verification email for each user associated with the order
                     payload_1.default.sendEmail({
                         from: "delivered@resend.dev",
-                        to: "edwinmongare15@gmail.com",
+                        to: userEmail,
                         subject: "Order Confirmed",
                         html: (0, PrimaryActionEmail_1.PrimaryActionEmailHtml)({
                             actionLabel: "Pacesetter Account",
@@ -138,7 +138,7 @@ var yourOwnAndPurchased = function (_a) {
             switch (_b.label) {
                 case 0:
                     user = req.user;
-                    if ((user === null || user === void 0 ? void 0 : user.role) === "admin")
+                    if ((user === null || user === void 0 ? void 0 : user.role) === "admin" || "administrator")
                         return [2 /*return*/, true];
                     if (!user)
                         return [2 /*return*/, false];
@@ -200,15 +200,17 @@ exports.Orders = {
         read: yourOwnAndPurchased,
         update: function (_a) {
             var user = _a.req.user;
-            return user.role === "user" || user.role === "admin";
+            return user.role === "user" ||
+                user.role === "admin" ||
+                user.role === "administrator";
         },
         delete: function (_a) {
             var user = _a.req.user;
-            return user.role === "admin";
+            return user.role === "admin" || user.role === "administrator";
         },
         create: function (_a) {
             var user = _a.req.user;
-            return user.role === "user" || user.role === "admin";
+            return user.role === "user";
         },
     },
     upload: {
@@ -314,11 +316,15 @@ exports.Orders = {
         {
             name: "issuingOfficer",
             label: "issuing officer",
-            // admin: {
-            //   condition: () => true,
-            // },
             type: "relationship",
             relationTo: "issuingOfficer",
+            hasMany: true,
+        },
+        {
+            name: "stampTemplate",
+            label: "Stamp",
+            type: "relationship",
+            relationTo: "stampTemplate",
             hasMany: true,
         },
         {

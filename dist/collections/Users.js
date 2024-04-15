@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Users = void 0;
 var adminsAndUser = function (_a) {
     var user = _a.req.user;
-    if (user.role === "admin")
+    if (user.role === "superadmin")
         return true;
     return {
         id: {
@@ -26,17 +26,17 @@ exports.Users = {
         create: function () { return true; },
         update: function (_a) {
             var req = _a.req;
-            return req.user.role === "admin";
+            return req.user.role === "superadmin";
         },
         delete: function (_a) {
             var req = _a.req;
-            return req.user.role === "admin";
+            return req.user.role === "superadmin";
         },
     },
     admin: {
         hidden: function (_a) {
             var user = _a.user;
-            return user.role !== "admin";
+            return user.role !== "superadmin";
         },
         defaultColumns: ["id"],
     },
@@ -62,6 +62,7 @@ exports.Users = {
             options: [
                 { label: "Admin", value: "admin" },
                 { label: "User", value: "user" },
+                { label: "Super Admin", value: "superadmin" },
             ],
         },
     ],

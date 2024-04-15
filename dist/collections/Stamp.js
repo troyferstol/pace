@@ -11,9 +11,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Certificate = void 0;
-exports.Certificate = {
-    slug: "certificateTemplate",
+exports.Stamp = void 0;
+exports.Stamp = {
+    slug: "stampTemplate",
     hooks: {
         beforeChange: [
             function (_a) {
@@ -42,19 +42,14 @@ exports.Certificate = {
             return req.user.role === "superadmin";
         },
     },
-    // access: {
-    //   read: ({ req }) => req.user.role === "admin" || req.user.role === "user",
-    //   create: ({ req }) => req.user.role === "admin",
-    //   update: ({ req }) => req.user.role === "admin",
-    // },
     admin: {
         hidden: false,
-        useAsTitle: "certificateTemplate",
+        useAsTitle: "stampTemplate",
     },
     upload: {
-        staticURL: "/certificate",
-        staticDir: "certificate",
-        mimeTypes: ["application/pdf"],
+        staticURL: "/stamp",
+        staticDir: "stamp",
+        mimeTypes: ["image/*"],
     },
     fields: [],
 };
